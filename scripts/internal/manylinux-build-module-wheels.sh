@@ -37,6 +37,7 @@ for PYBIN in "${PYBINARIES[@]}"; do
       echo 'ITK source tree not available!' 1>&2
       exit 1
     fi
+    echo 'Matt ' $1
     ${PYBIN}/python setup.py bdist_wheel --build-type Release -G Ninja -- \
       -DITK_DIR:PATH=${itk_build_dir} \
       -DITK_USE_SYSTEM_SWIG:BOOL=ON \
@@ -46,6 +47,7 @@ for PYBIN in "${PYBINARIES[@]}"; do
       -DBUILD_TESTING:BOOL=OFF \
       -DPython3_EXECUTABLE:FILEPATH=${Python3_EXECUTABLE} \
       -DPython3_INCLUDE_DIR:PATH=${Python3_INCLUDE_DIR} \
+      "$1" \
     || exit 1
     ${PYBIN}/python setup.py clean
 done
